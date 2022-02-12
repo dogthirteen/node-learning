@@ -1,0 +1,45 @@
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+    .block {
+      width: 200px;
+      height: 200px;
+      border-radius: 6px;
+      transform: scale(2.5);
+      background-color: red;
+      animation: ani1 10s linear infinite;
+    }
+    @keyframes ani1 {
+      0% {
+        transform: scale(0.5);
+        transform: rotate(11111deg);
+        background-color: #f1cadf;
+      }
+      25% {
+        transform: scale(1.5);
+        transform: rotate(444555deg);
+        background-color: #fedfda;
+      }
+      50% {
+        transform: scale(2.5);
+        transform: rotate(99999deg);
+        background-color: #e5d1b8;
+      }
+      75% {
+        transform: scale(1.5);
+        transform: rotate(444555deg);
+        background-color: #c3dac6;
+      }
+      100% {
+        transform: scale(0.5);
+        transform: rotate(11111deg);
+        background-color: #adcedf;
+      }
+    }
+  

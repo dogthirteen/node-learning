@@ -1,0 +1,1 @@
+hellow fs.readFilde('flieURl','format',callback(err,dataStr))

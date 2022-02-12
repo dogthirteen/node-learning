@@ -1,0 +1,1 @@
+console.log('通过 package.json 加载js文件');
