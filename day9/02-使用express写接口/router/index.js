@@ -1,6 +1,6 @@
-const expres = require('express')
+const express = require('express')
 
-const router = expres.Router()
+const router = express.Router()
 
 router.get('/v1/getUserInfo', (req, res) => {
 
