@@ -1,12 +1,15 @@
 const express = require('express');
 const session = require('express-session')
+const cors = require('cors');
 const path = require('path');
 
 const api = require('./router')
 
 const app = express()
 
-app.all("*", function (req, res, next) {
+// app.use(cors())
+
+/* app.all("*", function (req, res, next) {
   //设置允许跨域的域名，*代表允许任意域名跨域
   res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
   //允许的header类型
@@ -16,8 +19,8 @@ app.all("*", function (req, res, next) {
   //跨域允许的请求方式 
   res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
 
-  /*  // 设置响应数据类型
-   res.header("Content-Type", "application/json;charset=utf-8"); */
+  // 设置响应数据类型
+  res.header("Content-Type", "application/json;charset=utf-8");
 
   if (req.method.toLowerCase() == 'options')
     res.send(204);  //让options尝试请求快速结束
@@ -25,7 +28,7 @@ app.all("*", function (req, res, next) {
     next();
   }
 
-})
+}) */
 
 app.use(session({
   secret: 'admin',
