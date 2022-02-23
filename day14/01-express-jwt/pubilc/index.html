@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="POST" id="form">
+      <label for="username">账户</label>
+      <input type="text" id="username" name="username" />
+      <label for="password">密码</label>
+      <input type="password" id="password" name="password" />
+      <button type="submit">登录</button>
+    </form>
+    <button id="getuinfo">获取用户信息</button>
+    <button id="logout">退出登录</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      // 退出登录
+
+      $('#logout').click(() => {
+        $.ajax({
+          url: 'http://127.0.0.1:5501/api/v1/logout',
+          method: 'POST',
+          data: {},
+          success(res) {
+            console.log('退出登录', res)
+          },
+        })
+      })
+
+      // 获取用户信息
+      $('#getuinfo').click(() => {
+        $.ajax({
+          url: 'http://127.0.0.1:5501/api/v1/getUinfo',
+          xhrFields: { withCredentials: true },
+          method: 'GET',
+          success: res => {
+            console.log(res)
+          },
+        })
+      })
+
+      // 阻止表单默认提交行为
+      $('#form').submit(e => {
+        e.preventDefault()
+
+        let data = new FormData(form)
+
+        let jsondata = {}
+
+        data.forEach((value, key) => {
+          if (!jsondata[key]) {
+            jsondata[key] = data.getAll(key).length > 1 ? data.getAll(key) : data.get(key)
+          }
+        })
+
+        for (const key in jsondata) {
+          if (Object.hasOwnProperty.call(jsondata, key)) {
+            if (!jsondata[key]) {
+              return window.alert(`请填写${key}`)
+            }
+          }
+        }
+
+        $.ajax({
+          url: 'http://127.0.0.1:5501/api/v1/login',
+          method: 'post',
+          xhrFields: { withCredentials: true },
+          data: jsondata,
+          success: res => {
+            console.log(res)
+          },
+        })
+      })
+    </script>
+  </body>
+</html>
