@@ -1,0 +1,58 @@
+{% include './common/Header.njk' %}
+<link rel="stylesheet" href="/css/login.css" />
+<div class="login-main">
+  <h4 class="title">{{ title }}</h4>
+  <form method="POST" id="form">
+    <div class="form-item">
+      <label for="username">账户</label>
+      <input type="text" id="username" name="username" />
+    </div>
+    <div class="form-item">
+      <label for="password">密码</label>
+      <input type="password" id="password" name="password" />
+    </div>
+    <button class="submit" type="submit">登录</button>
+  </form>
+  <!-- <button class="get-user-info" id="getuinfo">获取用户信息</button> -->
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  // 阻止表单默认提交行为
+  $('#form').submit(e => {
+    e.preventDefault()
+
+    let data = new FormData(form)
+
+    let jsondata = {}
+
+    data.forEach((value, key) => {
+      if (!jsondata[key]) {
+        jsondata[key] = data.getAll(key).length > 1 ? data.getAll(key) : data.get(key)
+      }
+    })
+
+    for (const key in jsondata) {
+      if (Object.hasOwnProperty.call(jsondata, key)) {
+        if (!jsondata[key]) {
+          return window.alert(`请填写${key}`)
+        }
+      }
+    }
+
+    $.ajax({
+      url: '/api/login',
+      method: 'post',
+      xhrFields: { withCredentials: true },
+      data: jsondata,
+      success: res => {
+        console.log(res)
+        if (res.code === 1) {
+          localStorage.setItem('token', res.token)
+          location.href = '/'
+        }
+      },
+    })
+  })
+</script>
+
+{% include './common/Footer.njk' %}

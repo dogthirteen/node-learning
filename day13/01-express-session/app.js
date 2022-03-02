@@ -31,11 +31,11 @@ const app = express()
 }) */
 
 app.use(session({
-  secret: 'admin',
-  resave: false,
-  saveUninitialized: true,
+  secret: 'admin', // 密钥用来对session id相关的cookie进行签名
+  resave: false, // 是否每次都重新保存会话，建议false
+  saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
   cookie: {
-    maxAge: 1000 * 60 * 60
+    maxAge: 1000 * 60 * 60 // session有效期
   },
 }))
 
