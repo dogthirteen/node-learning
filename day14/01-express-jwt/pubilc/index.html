@@ -15,27 +15,16 @@
       <button type="submit">登录</button>
     </form>
     <button id="getuinfo">获取用户信息</button>
-    <button id="logout">退出登录</button>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      // 退出登录
-
-      $('#logout').click(() => {
-        $.ajax({
-          url: 'http://127.0.0.1:5501/api/v1/logout',
-          method: 'POST',
-          data: {},
-          success(res) {
-            console.log('退出登录', res)
-          },
-        })
-      })
-
+      var token = 'Bearer '
       // 获取用户信息
       $('#getuinfo').click(() => {
         $.ajax({
-          url: 'http://127.0.0.1:5501/api/v1/getUinfo',
-          xhrFields: { withCredentials: true },
+          url: 'http://127.0.0.1/api/getUinfo',
+          headers: {
+            Authorization: token,
+          },
           method: 'GET',
           success: res => {
             console.log(res)
@@ -66,12 +55,15 @@
         }
 
         $.ajax({
-          url: 'http://127.0.0.1:5501/api/v1/login',
+          url: 'http://127.0.0.1/login',
           method: 'post',
           xhrFields: { withCredentials: true },
           data: jsondata,
           success: res => {
             console.log(res)
+            if (res.code === 1) {
+              token += res.token
+            }
           },
         })
       })

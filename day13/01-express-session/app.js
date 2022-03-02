@@ -43,7 +43,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // 配置静态资源托管
-app.use(express.static(path.join(__dirname + '/pubilc')))
+app.use(express.static(path.join(__dirname, '/pubilc')))
 
 app.use('/api', api)
 
